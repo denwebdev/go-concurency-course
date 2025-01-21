@@ -2,9 +2,6 @@ package storage
 
 import (
 	"errors"
-	"fmt"
-
-	"go.uber.org/zap"
 )
 
 const (
@@ -12,14 +9,12 @@ const (
 )
 
 type InMemoryEngine struct {
-	logger *zap.Logger
-	data   map[string]string
+	data map[string]string
 }
 
-func NewInMemoryEngine(logger *zap.Logger) *InMemoryEngine {
+func NewInMemoryEngine() *InMemoryEngine {
 	return &InMemoryEngine{
-		logger: logger,
-		data:   make(map[string]string),
+		data: make(map[string]string),
 	}
 }
 
@@ -36,10 +31,5 @@ func (e *InMemoryEngine) Get(key string) (string, error) {
 }
 
 func (e *InMemoryEngine) Del(key string) {
-	_, exists := e.data[key]
-	if !exists {
-		e.logger.Info(fmt.Sprintf("value by key: %s not exists", key))
-		return
-	}
 	delete(e.data, key)
 }

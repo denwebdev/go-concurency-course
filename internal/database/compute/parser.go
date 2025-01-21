@@ -12,6 +12,11 @@ var (
 	errUnknownCommand = errors.New("unknown command")
 )
 
+var (
+	setCommandArgsCount       = 2
+	getAndDelCommandArgsCount = 1
+)
+
 type CommandParser struct{}
 
 func (p *CommandParser) Parse(input string) (string, []string, error) {
@@ -27,12 +32,12 @@ func (p *CommandParser) Parse(input string) (string, []string, error) {
 	args := parts[1:]
 	switch cmd {
 	case SetCommand:
-		if len(args) != 2 {
+		if len(args) != setCommandArgsCount {
 			return "", nil, errInvalidArgs
 		}
 		return cmd, args, nil
 	case GetCommand, DelCommand:
-		if len(args) != 1 {
+		if len(args) != getAndDelCommandArgsCount {
 			return "", nil, errInvalidArgs
 		}
 		return cmd, args, nil

@@ -4,12 +4,10 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/zap"
 )
 
 func TestSetAndGet(t *testing.T) {
-	logger := zap.L()
-	engine := NewInMemoryEngine(logger)
+	engine := NewInMemoryEngine()
 	engine.Set("testKey", "testValue")
 	v, err := engine.Get("testKey")
 	assert.NoError(t, err)
@@ -17,8 +15,7 @@ func TestSetAndGet(t *testing.T) {
 }
 
 func TestDelAndGet(t *testing.T) {
-	logger := zap.L()
-	engine := NewInMemoryEngine(logger)
+	engine := NewInMemoryEngine()
 	engine.Set("testKey", "testValue")
 	engine.Del("testKey")
 	v, err := engine.Get("testKey")
